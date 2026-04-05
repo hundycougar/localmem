@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Search — localmem{% endblock %}
+{% block content %}
+<h2>Search{% if query %}: "{{ query }}"{% endif %}</h2>
+{% if notes %}
+<ul class="note-list">
+  {% for n in notes %}
+  <li>
+    <a href="/note/{{ n.id }}">{{ (n.content or n.snippet or '').split('\n')[0][:80] | replace('#', '') | trim }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% elif query %}
+<p>No results.</p>
+{% endif %}
+{% endblock %}
