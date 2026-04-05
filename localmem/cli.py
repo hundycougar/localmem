@@ -68,9 +68,10 @@ def list_notes(collection: str | None, page: str | None) -> None:
     table.add_column("Updated", style="cyan")
 
     for n in notes:
+        title_src = n.get("content") or n.get("title") or n.get("snippet") or "Untitled"
         table.add_row(
             n["id"],
-            _note_title(n.get("content", "")),
+            _note_title(title_src),
             n.get("updated_at", "")[:10],
         )
     console.print(table)
@@ -160,7 +161,8 @@ def search_notes(query: str, limit: int) -> None:
     table.add_column("Title")
 
     for n in notes:
-        table.add_row(n["id"], _note_title(n.get("content", n.get("snippet", ""))))
+        title_src = n.get("content") or n.get("snippet") or n.get("title") or "Untitled"
+        table.add_row(n["id"], _note_title(title_src))
     console.print(table)
 
 
